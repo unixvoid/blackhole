@@ -1,0 +1,7 @@
+[blackhole]
+  loglevel      = "debug"
+  dnsport       = 8053
+
+[redis]
+  host          = "localhost:6379"
+  password      = ""
