@@ -18,7 +18,7 @@ aci: stat
 	mkdir -p blackhole-layout/rootfs/
 	cp bin/blackhole blackhole-layout/rootfs/
 	cp config.gcfg blackhole-layout/rootfs/
-	cp manifest.json blackhole-layout/manifest
+	cp deps/manifest.json blackhole-layout/manifest
 	actool build blackhole-layout blackhole.aci
 
 test_rkt:

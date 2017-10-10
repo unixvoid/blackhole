@@ -1,0 +1,27 @@
+language: go
+
+go:
+  - 1.7
+
+services:
+  - redis-server
+
+script:
+  - make
+
+after_success:
+  # build project
+  - make clean aci
+  - mv blackhole.aci blackhole-latest-linux-amd64.aci
+  # push binary to binder
+  - curl -i --form sec=$BINDER_SEC --form file=@`ls bin/blackhole*` --form path=blackhole/ https://cryo.unixvoid.com/upload
+  - curl -i --form sec=$BINDER_SEC --form file=@`ls bin/blackhole*` --form filename=blackhole-latest-linux-amd64 --form path=blackhole/ https://cryo.unixvoid.com/upload
+  # pull pub/pri gpg keys
+  - curl -d sec=$BINDER_SEC -d key=unixvoid.pub https://cryo.unixvoid.com/getfile --output unixvoid.pub
+  - curl -d sec=$BINDER_SEC -d key=unixvoid.sec https://cryo.unixvoid.com/getfile --output unixvoid.sec
+  # sign aci
+  - cp deps/sign.sh . && chmod +x sign.sh
+  - ./sign.sh $GPG_SEC
+  # push rkt image and sig to binder
+  - curl -i --form sec=$BINDER_SEC --form file=@blackhole-latest-linux-amd64.aci --form path=rkt/blackhole/ https://cryo.unixvoid.com/upload
+  - curl -i --form sec=$BINDER_SEC --form file=@blackhole-latest-linux-amd64.aci.asc --form path=rkt/blackhole/ https://cryo.unixvoid.com/upload
