@@ -21,6 +21,12 @@ aci: stat
 	cp manifest.json blackhole-layout/manifest
 	actool build blackhole-layout blackhole.aci
 
+test_rkt:
+	sudo rkt run \
+		--insecure-options=image \
+		--net=host \
+		blackhole.aci
+
 clean:
 	rm -rf bin/ \
 		blackhole \
