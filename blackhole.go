@@ -18,6 +18,7 @@ type Config struct {
 		DNSPort  int
 	}
 	Redis struct {
+		UseRedis bool
 		Host     string
 		Password string
 	}
@@ -30,12 +31,19 @@ var (
 func main() {
 	readConf()
 	initLogger(config.Blackhole.Loglevel)
+
 	redisClient, redisErr := initRedisConnection()
 	if redisErr != nil {
-		glogger.Error.Println("redis connection cannot be made.")
-		glogger.Error.Println("cryodns will continue to function in passthrough mode only")
+		// only print if we are using redis
+		if config.Redis.UseRedis {
+			glogger.Error.Println("redis connection cannot be made.")
+			glogger.Error.Println("cryodns will continue to function in passthrough mode only")
+		}
 	} else {
-		glogger.Debug.Println("connection to redis succeeded.")
+		// only print if we are using redis
+		if config.Redis.UseRedis {
+			glogger.Debug.Println("connection to redis succeeded.")
+		}
 	}
 
 	// format the string to be :port
@@ -47,9 +55,9 @@ func main() {
 
 	dns.HandleFunc(".", func(w dns.ResponseWriter, req *dns.Msg) {
 		// reutrn nonexistent reply  to all requests
-		glogger.Debug.Printf("handling repose, sending rcode3")
-
 		hostname := req.Question[0].Name
+
+		glogger.Debug.Printf("request received: %s", hostname)
 
 		rr := new(dns.A)
 		rr.Hdr = dns.RR_Header{Name: hostname, Rrtype: dns.TypeA, Class: dns.ClassINET, Ttl: 1}
@@ -65,7 +73,9 @@ func main() {
 		w.WriteMsg(rep)
 
 		// add hostname to redis db
-		redisClient.SAdd("index:domains", hostname)
+		if config.Redis.UseRedis {
+			redisClient.SAdd("index:domains", hostname)
+		}
 	})
 
 	go func() {
