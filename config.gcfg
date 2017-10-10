@@ -1,6 +1,6 @@
 [blackhole]
   loglevel      = "debug"
-  dnsport       = 8053
+  dnsport       = 53
 
 [redis]
   useredis      = false
