@@ -21,11 +21,14 @@ dependencies:
 	go get github.com/unixvoid/glogger
 
 aci: stat
+	wget https://github.com/appc/spec/releases/download/v0.8.7/appc-v0.8.7.tar.gz
+	tar -zxf appc-v0.8.7.tar.gz
 	mkdir -p blackhole-layout/rootfs/
 	cp bin/blackhole blackhole-layout/rootfs/
 	cp config.gcfg blackhole-layout/rootfs/
 	cp deps/manifest.json blackhole-layout/manifest
-	actool build blackhole-layout blackhole.aci
+	./appc-v0.8.7/actool build blackhole-layout blackhole.aci
+	rm -rf appc*
 
 test_rkt:
 	sudo rkt run \
@@ -35,6 +38,7 @@ test_rkt:
 
 clean:
 	rm -rf bin/ \
+		appc* \
 		blackhole \
 		blackhole.aci \
 		blackhole-layout
