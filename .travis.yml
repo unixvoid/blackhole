@@ -7,7 +7,7 @@ services:
   - redis-server
 
 script:
-  - make
+  - make dependencies build
 
 after_success:
   # build project
