@@ -1,0 +1,10 @@
+[Unit]
+Description=DNS blackhole
+
+[Service]
+ExecStart=/usr/bin/rkt run \
+  --net=host \
+  unixvoid.com/blackhole
+
+[Install]
+WantedBy=multi-user.target
