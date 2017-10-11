@@ -33,8 +33,8 @@ aci: stat
 test_rkt:
 	sudo rkt run \
 		--insecure-options=image \
-    --port=dns-tcp:8053 \
-    --port=dns-udp:8053 \
+		--port=dns-tcp:8053 \
+		--port=dns-udp:8053 \
 		blackhole.aci
 
 clean:
