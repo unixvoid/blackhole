@@ -45,6 +45,15 @@ func main() {
 			glogger.Debug.Println("connection to redis succeeded.")
 		}
 	}
+	println(` _   _         _   _       _     
+| |_| |___ ___| |_| |_ ___| |___ 
+| . | | .'|  _| '_|   | . | | -_|
+|___|_|__,|___|_,_|_|_|___|_|___|`)
+	if config.Redis.UseRedis {
+		println("Running with redis connection..")
+	} else {
+		println("Running in standalone mode..")
+	}
 
 	// format the string to be :port
 	fPort := fmt.Sprint(":", config.Blackhole.DNSPort)
