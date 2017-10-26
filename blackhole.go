@@ -67,6 +67,7 @@ func main() {
 		hostname := req.Question[0].Name
 
 		glogger.Debug.Printf("request received: %s", hostname)
+		glogger.Debug.Printf("%v\n", req)
 
 		rr := new(dns.A)
 		rr.Hdr = dns.RR_Header{Name: hostname, Rrtype: dns.TypeA, Class: dns.ClassINET, Ttl: 1}
