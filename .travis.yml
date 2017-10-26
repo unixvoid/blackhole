@@ -30,4 +30,4 @@ after_success:
   - make clean docker
   # log in and push docker image to dockerhub
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - sudo docker push unixvoid/docker
+  - sudo docker push unixvoid/blackhole
