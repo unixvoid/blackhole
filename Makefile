@@ -1,6 +1,7 @@
 GOC=go build
 GOFLAGS=-a -ldflags '-s'
 CGOR=CGO_ENABLED=0
+DOCKER_NAME=unixvoid/blackhole
 
 all: blackhole
 
@@ -37,9 +38,17 @@ test_rkt:
 		--port=dns-udp:8053 \
 		blackhole.aci
 
+docker: stat
+	mkdir -p stage.tmp/
+	cp deps/Dockerfile stage.tmp/
+	cp bin/blackhole stage.tmp/
+	cd stage.tmp && \
+		sudo docker build -t $(DOCKER_NAME) .
+
 clean:
 	rm -rf bin/ \
 		appc* \
 		blackhole \
 		blackhole.aci \
-		blackhole-layout
+		blackhole-layout \
+		stage.tmp

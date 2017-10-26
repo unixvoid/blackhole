@@ -5,6 +5,7 @@ go:
 
 services:
   - redis-server
+  - docker
 
 script:
   - make dependencies all
@@ -25,3 +26,8 @@ after_success:
   # push rkt image and sig to binder
   - curl -i --form sec=$BINDER_SEC --form file=@blackhole-latest-linux-amd64.aci --form path=rkt/blackhole/ https://cryo.unixvoid.com/upload
   - curl -i --form sec=$BINDER_SEC --form file=@blackhole-latest-linux-amd64.aci.asc --form path=rkt/blackhole/ https://cryo.unixvoid.com/upload
+  # run docker build
+  - make clean docker
+  # log in and push docker image to dockerhub
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - sudo docker push unixvoid/docker
