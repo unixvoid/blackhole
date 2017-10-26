@@ -1,4 +1,5 @@
 # Blackhole
+[![Build Status (Travis)](https://travis-ci.org/unixvoid/blackhole.svg?branch=master)](https://travis-ci.org/unixvoid/blackhole)  
 Blackhole is a DNS blackhole written in golang. The main point of this project is to be a small(statically compiled), 
 portable binary with available container options if needed.
 
