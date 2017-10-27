@@ -23,12 +23,12 @@ grab our handy [service file](https://github.com/unixvoid/blackhole/blob/master/
 The configuration is very straightforward, we can take a look at the default
 config file and break it down.
 ```
-[blackhole]								# this section is the start of the servers main config.
-	loglevel		= "debug"			# loglevel, this can be [debug, cluster, info, error]
-	dnsport			= 53				# port for DNS listener to bind to
+[blackhole]					# this section is the start of the servers main config.
+	loglevel	= "debug"		# loglevel, this can be [debug, cluster, info, error]
+	dnsport		= 53			# port for DNS listener to bind to
 
-[redis]									# this section is the start of redis configurations
-	useredis		= false				# weather or not to use redis at all
-	host			= "localhost:6379"	# address and port of the redis server to be used
-	password		= ""				# password for the redis server
+[redis]						# this section is the start of redis configurations
+	useredis	= false			# weather or not to use redis at all
+	host		= "localhost:6379"	# address and port of the redis server to be used
+	password	= ""			# password for the redis server
 ```
