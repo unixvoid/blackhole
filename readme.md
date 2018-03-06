@@ -31,4 +31,7 @@ config file and break it down.
 	useredis	= false			# weather or not to use redis at all
 	host		= "localhost:6379"	# address and port of the redis server to be used
 	password	= ""			# password for the redis server
-```
+```  
+Note that redis can be used to log domains.  Set `useredis` to true and fill in the proper
+redis configurations to turn this on.  This feature is mainly for auditing purposes and will
+drop every queried domain into a redis entry named `index:domains`.
