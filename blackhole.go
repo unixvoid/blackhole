@@ -37,7 +37,7 @@ func main() {
 		// only print if we are using redis
 		if config.Redis.UseRedis {
 			glogger.Error.Println("redis connection cannot be made.")
-			glogger.Error.Println("cryodns will continue to function in passthrough mode only")
+			glogger.Error.Println("the blackhole will continue to function in passthrough mode only")
 		}
 	} else {
 		// only print if we are using redis
